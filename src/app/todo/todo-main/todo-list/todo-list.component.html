@@ -1,0 +1,15 @@
+<div class="todo-list">
+    <mat-toolbar color="primary" class="todo-list-header">
+        <h1>ToDo App</h1>
+    </mat-toolbar>
+    <div class="todo-list-main" cdkDropList #todoList="cdkDropList" [cdkDropListData]="todos"
+        (cdkDropListDropped)="drop($event)">
+        <div *ngFor="let todo of todos" class="todo-list-main-item" cdkDrag>
+            <div class="todo-list-main-item-drag" cdkDragHandle>
+                <mat-icon>flip_to_front</mat-icon>
+            </div>
+            <div class="todo-list-main-item-placeholder" *cdkDragPlaceholder></div>
+            <app-todo-item></app-todo-item>
+        </div>
+    </div>
+</div>

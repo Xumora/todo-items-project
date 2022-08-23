@@ -1,0 +1,7 @@
+.todo-main{
+    display: flex;
+    &-list{
+        width: calc(100% / 2);
+        padding: 16px;
+    }
+}
