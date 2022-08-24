@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-todo-form',
@@ -6,10 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./todo-form.component.scss']
 })
 export class TodoFormComponent implements OnInit {
+  @ViewChild('todoForm', { static: false }) todoForm!: NgForm;
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  onSubmit() {
+
+  }
 }

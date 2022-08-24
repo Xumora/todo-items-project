@@ -4,7 +4,11 @@
         justify-content: center;
     }
     &-main{
-        background-color: #FAFAFA;
+        max-height: calc(100vh - 176px);
+        overflow-y: auto;
+        &::-webkit-scrollbar{
+            display: none;
+        }
         &-item{
             border-bottom: 1px solid silver;
             background-color: #FAFAFA;
@@ -30,6 +34,7 @@
             &-placeholder{
                 background: #ccc;
                 border: dotted 3px #999;
+                min-height: 72px;
                 transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
             }
         }

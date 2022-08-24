@@ -1,1 +1,15 @@
-<p>todo-form works!</p>
+<div>
+    <h3 class="todoForm-title">Add new To Do Task</h3>
+    <form (ngSubmit)="onSubmit()" #todoForm="ngForm" class="todoForm">
+        <mat-form-field appearance="standard">
+            <mat-label>Title</mat-label>
+            <input matInput ngModel required name="title">
+            <!-- <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error> -->
+        </mat-form-field>
+        <mat-form-field appearance="standard">
+            <mat-label>Description</mat-label>
+            <textarea matInput ngModel required name="title" cdkTextareaAutosize [cdkAutosizeMaxRows]="10"></textarea>
+            <!-- <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error> -->
+        </mat-form-field>
+    </form>
+</div>

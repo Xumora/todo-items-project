@@ -1,5 +1,12 @@
 <div class="todo-main">
-    <div *ngFor="let list of todoLists" class="todo-main-list">
-        <app-todo-list></app-todo-list>
+    <div class="todo-main-list">
+        <app-todo-list [name]="'To Do tasks'" [todos]="todoTasks" cdkDropList #todoList="cdkDropList"
+            [cdkDropListData]="todoTasks" [cdkDropListConnectedTo]="[doneList]" (cdkDropListDropped)="drop($event)">
+        </app-todo-list>
+    </div>
+    <div class="todo-main-list">
+        <app-todo-list [name]="'Completed tasks'" [todos]="completedTasks" cdkDropList #doneList="cdkDropList"
+            [cdkDropListData]="completedTasks" [cdkDropListConnectedTo]="[todoList]"
+            (cdkDropListDropped)="drop($event)"></app-todo-list>
     </div>
 </div>

@@ -14,6 +14,9 @@ import { TodoItemComponent } from './todo/todo-main/todo-list/todo-item/todo-ite
 import { TodoFormComponent } from './todo/todo-sidebar/todo-form/todo-form.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatIconModule } from '@angular/material/icon';
+import { FormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field'
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -32,7 +35,10 @@ import { MatIconModule } from '@angular/material/icon';
     BrowserAnimationsModule,
     MatToolbarModule,
     DragDropModule,
-    MatIconModule
+    MatIconModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]
