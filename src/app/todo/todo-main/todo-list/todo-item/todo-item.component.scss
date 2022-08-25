@@ -1,11 +1,33 @@
 .todo-item{
-    padding: 16px;
-    background-color: #FAFAFA;
-    cursor: pointer;
-    &-title{
-        font-size: 20px;
-        color: #3f51b5;
-        font-weight: 500;
-        margin-bottom: 8px !important;
+    background-color: white;
+    border-bottom: 1px solid silver;
+    display: flex;
+    &-content{
+        width: calc(100% - 60px);
+        padding: 16px;
+        .title{
+            font-size: 20px;
+            color: #3f51b5;
+            font-weight: 500;
+            margin-bottom: 8px !important;
+        }
+        .description{
+            font-size: 16px;
+            font-weight: 400;
+        }
+    }
+    &-toolbar{
+        width: 60px;
+        background-color: #3f51b5;
+        padding: 12px;
+        button{
+            box-shadow: none !important;
+            background-color: white;
+            border-radius: 10px;
+            color: #3f51b5;
+            &:first-child{
+                margin-bottom: 8px;
+            }
+        }
     }
 }

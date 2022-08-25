@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Todo } from '../../todo.model';
 
 
@@ -9,12 +8,10 @@ import { Todo } from '../../todo.model';
   styleUrls: ['./todo-list.component.scss']
 })
 export class TodoListComponent implements OnInit {
-  @Input() name: string = '';
   @Input() todos: Todo[] = [];
 
   constructor() { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
 }

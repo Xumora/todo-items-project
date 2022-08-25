@@ -1,19 +1,24 @@
 <div>
-    <h3 class="todoForm-title">Add new To Do Task</h3>
+    <h3 class="todoForm-title">
+        {{editMode ? 'Edit a task' : 'Add new To Do Task'}}
+    </h3>
     <form (ngSubmit)="onSubmit()" #todoForm="ngForm" class="todoForm">
         <mat-form-field appearance="standard">
             <mat-label>Title</mat-label>
-            <input matInput ngModel required name="title">
-            <!-- <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error> -->
+            <input matInput [(ngModel)]="newTodo.title" name="title" #title="ngModel" required minlength="6"
+                maxlength="40">
+            <mat-error *ngIf="title.invalid">{{'asd'}}</mat-error>
         </mat-form-field>
         <mat-form-field appearance="standard">
             <mat-label>Description</mat-label>
-            <textarea matInput ngModel required name="description" cdkTextareaAutosize
-                [cdkAutosizeMaxRows]="10"></textarea>
-            <!-- <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error> -->
+            <textarea matInput [(ngModel)]="newTodo.description" required name="description" cdkTextareaAutosize
+                [cdkAutosizeMaxRows]="10" #description="ngModel"></textarea>
+            <mat-error *ngIf="description.invalid">Description is required!</mat-error>
         </mat-form-field>
         <div class="todoForm-bottom">
-            <button mat-raised-button color="primary">Add</button>
+            <button mat-raised-button color="primary" [disabled]="todoForm.invalid">{{editMode ? 'Update' :
+                'Add'}}</button>
+            <button mat-raised-button color="primary" *ngIf="editMode" (click)="onClear()" type="button">Clear</button>
         </div>
     </form>
 </div>

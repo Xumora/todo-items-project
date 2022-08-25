@@ -1,3 +1,8 @@
-<mat-toolbar color="primary">
+<mat-toolbar color="primary" class="header">
     <h1>ToDo App</h1>
+    <div class="header-linkBox">
+        <a mat-flat-button color="primary" routerLinkActive="active" routerLink="/todos">To Do Tasks</a>
+        <a mat-flat-button color="primary" routerLinkActive="active" routerLink="/completed">Completed Tasks</a>
+        <a mat-flat-button color="primary" routerLinkActive="active" routerLink="/all">All Tasks</a>
+    </div>
 </mat-toolbar>

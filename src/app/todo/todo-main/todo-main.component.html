@@ -1,12 +1,4 @@
-<div class="todo-main">
-    <div class="todo-main-list">
-        <app-todo-list [name]="'To Do tasks'" [todos]="todoTasks" cdkDropList #todoList="cdkDropList"
-            [cdkDropListData]="todoTasks" [cdkDropListConnectedTo]="[doneList]" (cdkDropListDropped)="drop($event)">
-        </app-todo-list>
-    </div>
-    <div class="todo-main-list">
-        <app-todo-list [name]="'Completed tasks'" [todos]="completedTasks" cdkDropList #doneList="cdkDropList"
-            [cdkDropListData]="completedTasks" [cdkDropListConnectedTo]="[todoList]"
-            (cdkDropListDropped)="drop($event)"></app-todo-list>
-    </div>
+<div class="todo-main" [ngClass]="{'loading': isLoading}">
+    <app-todo-list [todos]="todos" *ngIf="!isLoading"></app-todo-list>
+    <app-spinner *ngIf="isLoading"></app-spinner>
 </div>

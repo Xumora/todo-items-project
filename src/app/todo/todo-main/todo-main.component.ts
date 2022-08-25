@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Todo } from '../todo.model';
 import { TodoService } from '../todo.service';
 import { Subscription } from 'rxjs';
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-todo-main',
@@ -10,35 +10,28 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./todo-main.component.scss']
 })
 export class TodoMainComponent implements OnInit, OnDestroy {
-  todoTasks: Todo[] = [];
-  completedTasks: Todo[] = [];
-  todoSub!: Subscription;
+  todos: Todo[] = []
+  todosSub!: Subscription;
+  loadingSub!: Subscription;
+  isLoading = false;
 
-  constructor(private todoService: TodoService) { }
+  constructor(private todoService: TodoService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.todoService.getTasks();
-    this.todoSub = this.todoService.todosChanged.subscribe((todosRes: Todo[]) => {
-      this.todoTasks = todosRes.filter(todo => !todo.completed);
-      this.completedTasks = todosRes.filter(todo => todo.completed);
+    this.route.params.subscribe((params: Params) => {
+      this.todoService.getTasks();
+    })
+    this.todosSub = this.todoService.todosChanged.subscribe((res: Todo[]) => {
+      this.todos = res;
+    })
+    this.loadingSub = this.todoService.isLoading.subscribe(loadingStatus => {
+      this.isLoading = loadingStatus;
     })
   }
 
-  drop(event: CdkDragDrop<Todo[]>) {
-    if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } else {
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex,
-      );
-    }
-  }
-
   ngOnDestroy(): void {
-    this.todoSub.unsubscribe();
+    this.todosSub.unsubscribe();
+    this.loadingSub.unsubscribe();
   }
 
 }

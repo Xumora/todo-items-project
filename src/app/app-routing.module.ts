@@ -3,7 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { TodoComponent } from './todo/todo.component';
 
 const routes: Routes = [
-  { path: '', component: TodoComponent }
+  { path: '', redirectTo: '/todos', pathMatch: 'full' },
+  { path: ':todoType', component: TodoComponent }
 ];
 
 @NgModule({

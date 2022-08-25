@@ -1,7 +1,10 @@
 .todo-main{
-    display: flex;
-    &-list{
-        width: calc(100% / 2);
-        padding: 16px;
+    padding: 16px;
+    background-color: #FAFAFA;
+    height: 100%;
+    &.loading{
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 }
