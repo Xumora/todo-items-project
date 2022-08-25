@@ -1,0 +1,7 @@
+<div class="modal" (click)="onClose()">
+    <div class="modal-content" [ngClass]="{'error': isError}">
+        <p>{{message}}</p>
+        <hr>
+        <button mat-stroked-button (click)="onClose()">Close</button>
+    </div>
+</div>

@@ -1,4 +1,7 @@
 <div class="todo-main" [ngClass]="{'loading': isLoading}">
-    <app-todo-list [todos]="todos" *ngIf="!isLoading"></app-todo-list>
+    <app-todo-list [todos]="todos" *ngIf="!isLoading && !errorMessage"></app-todo-list>
     <app-spinner *ngIf="isLoading"></app-spinner>
+    <app-modal (modalClosed)="closeModal()" *ngIf="!isLoading && errorMessage !== null" [isError]="true"
+        [message]="'An error occured. '+ errorMessage">
+    </app-modal>
 </div>

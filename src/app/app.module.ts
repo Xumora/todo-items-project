@@ -19,6 +19,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { HttpClientModule } from '@angular/common/http';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { SpinnerComponent } from './shared/spinner/spinner.component';
+import { ModalComponent } from './shared/modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { SpinnerComponent } from './shared/spinner/spinner.component';
     TodoListComponent,
     TodoItemComponent,
     TodoFormComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,

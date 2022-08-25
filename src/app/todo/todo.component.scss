@@ -3,6 +3,7 @@
     &-sidebar{
         width: 350px;
         height: calc(100vh - 64px);
+        border-right: 1px solid silver;
     }
     &-main{
         width: calc(100% - 350px);

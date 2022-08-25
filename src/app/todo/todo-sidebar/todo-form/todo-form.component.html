@@ -7,13 +7,13 @@
             <mat-label>Title</mat-label>
             <input matInput [(ngModel)]="newTodo.title" name="title" #title="ngModel" required minlength="6"
                 maxlength="40">
-            <mat-error *ngIf="title.invalid">{{'asd'}}</mat-error>
+            <mat-error *ngIf="title.invalid && title.touched">Title must contain at least 6 symbols</mat-error>
         </mat-form-field>
         <mat-form-field appearance="standard">
             <mat-label>Description</mat-label>
             <textarea matInput [(ngModel)]="newTodo.description" required name="description" cdkTextareaAutosize
                 [cdkAutosizeMaxRows]="10" #description="ngModel"></textarea>
-            <mat-error *ngIf="description.invalid">Description is required!</mat-error>
+            <mat-error *ngIf="description.invalid && description.touched">Description is required!</mat-error>
         </mat-form-field>
         <div class="todoForm-bottom">
             <button mat-raised-button color="primary" [disabled]="todoForm.invalid">{{editMode ? 'Update' :

@@ -1,0 +1,26 @@
+.modal{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &-content{
+        padding: 16px;
+        width: 50vw;
+        max-height: 50vh;
+        overflow-y: auto;
+        border-radius: 6px;
+        &::-webkit-scrollbar{
+            display: none;
+        }
+        &.error{
+            background-color: rgb(238, 196, 203);
+            border: 1px solid rgb(207, 74, 74);
+            color: rgb(207, 74, 74);
+        }
+    }
+}

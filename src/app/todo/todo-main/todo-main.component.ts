@@ -14,6 +14,8 @@ export class TodoMainComponent implements OnInit, OnDestroy {
   todosSub!: Subscription;
   loadingSub!: Subscription;
   isLoading = false;
+  errorSub!: Subscription;
+  errorMessage: any = null;
 
   constructor(private todoService: TodoService, private route: ActivatedRoute) { }
 
@@ -27,11 +29,19 @@ export class TodoMainComponent implements OnInit, OnDestroy {
     this.loadingSub = this.todoService.isLoading.subscribe(loadingStatus => {
       this.isLoading = loadingStatus;
     })
+    this.errorSub = this.todoService.errorMes.subscribe(err => {
+      this.errorMessage = err;
+    })
+  }
+
+  closeModal() {
+    this.todoService.errorMes.next(null)
   }
 
   ngOnDestroy(): void {
     this.todosSub.unsubscribe();
     this.loadingSub.unsubscribe();
+    this.errorSub.unsubscribe();
   }
 
 }

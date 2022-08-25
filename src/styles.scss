@@ -27,3 +27,25 @@ p {
    margin: 0 !important;
    padding: 0 !important;
 }
+
+.mat-form-field.mat-form-field-invalid {
+    &.ng-touched{
+        .mat-form-field-ripple{
+            background-color: #f44336;
+        }
+        .mat-form-field-label{
+            color: #f44336;
+        }
+    }
+    .mat-form-field-ripple{
+        background-color: silver;
+    }
+    .mat-form-field-label{
+        color: silver;
+    }
+}
+
+.mat-form-field-required-marker{
+    color: #f44336;
+}
+
