@@ -40,14 +40,14 @@ describe("ModalComponent", () => {
     it('should add modal close event emitter - button', () => {
         const btn = el.nativeElement.querySelector('.modal-content-close');
         spyOn(component.modalClosed, 'emit');
-        btn.click();
+        btn.dispatchEvent(new Event('click'));
         expect(component.modalClosed.emit).withContext('Event emitter not called').toHaveBeenCalled();
     })
 
     it('should add modal close event emitter - modal', () => {
         const modal = el.nativeElement.querySelector('.modal');
         spyOn(component.modalClosed, 'emit');
-        modal.click();
+        modal.dispatchEvent(new Event('click'));
         expect(component.modalClosed.emit).withContext('Event emitter not called').toHaveBeenCalled();
     })
 })
