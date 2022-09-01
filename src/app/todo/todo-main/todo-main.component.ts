@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Todo } from '../todo.model';
 import { TodoService } from '../todo.service';
-import { Subscription } from 'rxjs';
+import { mergeMap, Subscription, switchMap } from 'rxjs';
 import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
@@ -20,11 +20,18 @@ export class TodoMainComponent implements OnInit, OnDestroy {
   constructor(private todoService: TodoService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.route.params.subscribe((params: Params) => {
-      this.todoService.getTasks();
-    })
+    this.route.params.pipe(
+      mergeMap((params: Params) => this.todoService.getTasks())
+    ).subscribe()
+
     this.todosSub = this.todoService.todosChanged.subscribe((res: Todo[]) => {
-      this.todos = res;
+      if (this.route.snapshot.params['todoType'] === 'todos') {
+        this.todos = res.filter(todo => !todo.completed);
+      } else if (this.route.snapshot.params['todoType'] === 'completed') {
+        this.todos = res.filter(todo => todo.completed);
+      } else if (this.route.snapshot.params['todoType'] === 'all') {
+        this.todos = res;
+      }
     })
     this.loadingSub = this.todoService.isLoading.subscribe(loadingStatus => {
       this.isLoading = loadingStatus;

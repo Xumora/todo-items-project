@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { mergeMap, Subscription } from 'rxjs';
+import { Todo } from '../../todo.model';
 import { TodoService } from '../../todo.service';
 
 @Component({
@@ -17,30 +18,35 @@ export class TodoFormComponent implements OnInit, OnDestroy {
     description: '',
   }
 
+  editedTodo!: Todo;
+
   constructor(private todoService: TodoService) { }
 
   ngOnInit(): void {
-    this.editSub = this.todoService.editMode.subscribe(boolean => {
-      this.editMode = boolean;
-      if (boolean) {
-        this.newTodo.title = this.todoService.editTodo.title;
-        this.newTodo.description = this.todoService.editTodo.description;
-      }
+    this.editSub = this.todoService.editTodo.subscribe((todo: Todo) => {
+      this.editMode = true;
+      this.newTodo.title = todo.title;
+      this.newTodo.description = todo.description;
+      this.editedTodo = todo;
     })
   }
 
   onSubmit() {
     if (this.editMode) {
-      this.todoService.editTask(this.newTodo)
+      this.todoService.editTask({ id: this.editedTodo.id, ...this.newTodo, completed: this.editedTodo.completed }).pipe(
+        mergeMap(() => this.todoService.getTasks())
+      ).subscribe()
     } else {
-      this.todoService.addTask(this.newTodo)
+      this.todoService.addTask(this.newTodo).pipe(
+        mergeMap(() => this.todoService.getTasks())
+      ).subscribe()
     }
     this.onClear()
   }
 
   onClear() {
-    this.todoService.editMode.next(false);
-    this.todoForm.reset()
+    this.todoForm.reset();
+    this.editMode = false;
   }
 
   ngOnDestroy(): void {
