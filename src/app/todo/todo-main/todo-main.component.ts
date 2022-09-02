@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Todo } from '../todo.model';
 import { TodoService } from '../todo.service';
-import { mergeMap, Subscription, switchMap } from 'rxjs';
+import { mergeMap, Subscription } from 'rxjs';
 import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
