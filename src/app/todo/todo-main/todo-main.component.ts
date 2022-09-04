@@ -42,7 +42,7 @@ export class TodoMainComponent implements OnInit, OnDestroy {
   }
 
   closeModal() {
-    this.todoService.errorMes.next(null)
+    this.todoService.errorMes.next(null);
   }
 
   ngOnDestroy(): void {
