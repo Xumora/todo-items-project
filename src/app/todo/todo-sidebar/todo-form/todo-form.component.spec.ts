@@ -14,7 +14,7 @@ describe('TodoFormComponent', () => {
     let fixture: ComponentFixture<TodoFormComponent>;
     let component: TodoFormComponent;
     let el: DebugElement;
-    let todoService: any;
+    let todoService: TodoService;
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
@@ -72,7 +72,7 @@ describe('TodoFormComponent', () => {
     })
 
     it('should change newTodos title', () => {
-        const titleInput = el.nativeElement.querySelector('input[name=title]');
+        const titleInput: HTMLInputElement = el.nativeElement.querySelector('input[name=title]');
         titleInput.value = 'test';
         titleInput.dispatchEvent(new Event('input'));
         fixture.detectChanges();
@@ -80,7 +80,7 @@ describe('TodoFormComponent', () => {
     })
 
     it('should change newTodos description', () => {
-        const descriptionInput = el.nativeElement.querySelector('textarea[name=description]');
+        const descriptionInput: HTMLInputElement = el.nativeElement.querySelector('textarea[name=description]');
         descriptionInput.value = 'test';
         descriptionInput.dispatchEvent(new Event('input'));
         fixture.detectChanges();

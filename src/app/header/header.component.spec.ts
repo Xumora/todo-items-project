@@ -29,21 +29,21 @@ describe("HeaderComponent", () => {
     })
 
     it('should navigate to /todos url', fakeAsync(() => {
-        const link = el.nativeElement.querySelectorAll('a')[0]
+        const link: HTMLElement = el.nativeElement.querySelectorAll('a')[0]
         link.click();
         tick();
         expect(location.path()).withContext('todos link does not navigate to /todos').toBe('/todos')
     }))
 
     it('should navigate to /completed url', fakeAsync(() => {
-        const link = el.nativeElement.querySelectorAll('a')[1]
+        const link: HTMLElement = el.nativeElement.querySelectorAll('a')[1]
         link.click();
         tick();
         expect(location.path()).withContext('completed link does not navigate to /completed').toBe('/completed')
     }))
 
     it('should navigate to /all url', fakeAsync(() => {
-        const link = el.nativeElement.querySelectorAll('a')[2]
+        const link: HTMLElement = el.nativeElement.querySelectorAll('a')[2]
         link.click();
         tick();
         expect(location.path()).withContext('all tasks link does not navigate to /all').toBe('/all')

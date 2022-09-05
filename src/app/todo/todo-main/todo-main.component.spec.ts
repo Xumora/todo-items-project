@@ -14,7 +14,7 @@ describe('TodoMainComponent', () => {
     let fixture: ComponentFixture<TodoMainComponent>;
     let component: TodoMainComponent;
     let el: DebugElement;
-    let todoServise: any;
+    let todoServise: TodoService;
 
 
     beforeEach(waitForAsync(() => {

@@ -12,10 +12,9 @@ describe('TodoItem', () => {
     let fixture: ComponentFixture<TodoItemComponent>;
     let component: TodoItemComponent;
     let el: DebugElement;
-    let todoService: any;
+    let todoService: TodoService;
 
     beforeEach(waitForAsync(() => {
-
         TestBed.configureTestingModule({
             declarations: [TodoItemComponent],
             imports: [MatCheckboxModule, MatIconModule, HttpClientTestingModule],
@@ -35,17 +34,15 @@ describe('TodoItem', () => {
     })
 
     it('should render true information', () => {
-        component.todo = mockTodos[0];
-        fixture.detectChanges();
-        const title = el.nativeElement.querySelector('.title');
-        const description = el.nativeElement.querySelector('.description');
+        const title: HTMLElement = el.nativeElement.querySelector('.title');
+        const description: HTMLElement = el.nativeElement.querySelector('.description');
         expect(title.textContent).withContext('title is wrong').toEqual(component.todo.title);
         expect(description.textContent).withContext('description is wrong').toEqual(component.todo.description);
     })
 
     it('should edit', () => {
         spyOn(todoService.editTodo, 'next');
-        const editBtn = el.nativeElement.querySelector('.todo-item-toolbar').children[0];
+        const editBtn: HTMLElement = el.nativeElement.querySelector('.todo-item-toolbar').children[0];
         editBtn.dispatchEvent(new Event('click'));
         fixture.detectChanges()
         expect(todoService.editTodo.next).withContext('EditTodo.next did not called').toHaveBeenCalled();
@@ -53,14 +50,14 @@ describe('TodoItem', () => {
 
     it('should delete', () => {
         spyOn(todoService, 'deleteTask').and.returnValue(of());
-        const editBtn = el.nativeElement.querySelector('.todo-item-toolbar').children[1];
-        editBtn.dispatchEvent(new Event('click'));
+        const deleteBtn: HTMLElement = el.nativeElement.querySelector('.todo-item-toolbar').children[1];
+        deleteBtn.dispatchEvent(new Event('click'));
         expect(todoService.deleteTask).withContext('DeleteTask function did not called').toHaveBeenCalled();
     })
 
     it('should change status', () => {
         spyOn(todoService, 'changeStatus').and.returnValue(of());
-        const checkbox = el.nativeElement.querySelector('mat-checkbox');
+        const checkbox: HTMLInputElement = el.nativeElement.querySelector('mat-checkbox');
         checkbox.dispatchEvent(new Event('change'));
         expect(todoService.changeStatus).withContext('changeStatus function did not called').toHaveBeenCalled();
     })

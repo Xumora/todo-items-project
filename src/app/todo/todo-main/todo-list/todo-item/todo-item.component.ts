@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 import { mergeMap } from 'rxjs';
 import { Todo } from 'src/app/todo/todo.model';
 import { TodoService } from 'src/app/todo/todo.service';
@@ -15,7 +16,7 @@ export class TodoItemComponent implements OnInit {
 
   ngOnInit(): void { }
 
-  onCheck(event: any) {
+  onCheck(event: MatCheckboxChange) {
     if (event.checked) {
       this.todoService.changeStatus(this.todo, true).pipe(
         mergeMap(() => this.todoService.getTasks())

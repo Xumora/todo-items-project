@@ -27,7 +27,7 @@ describe('TodoListComponent', () => {
     it('should create list of todos', () => {
         component.todos = mockTodos;
         fixture.detectChanges();
-        const list = el.nativeElement.querySelector('.todo-list')
+        const list: HTMLElement = el.nativeElement.querySelector('.todo-list')
         expect(list.children.length).withContext('todo items not created').toEqual(3);
     })
 })

@@ -15,7 +15,7 @@ export class TodoMainComponent implements OnInit, OnDestroy {
   loadingSub!: Subscription;
   isLoading = false;
   errorSub!: Subscription;
-  errorMessage: any = null;
+  errorMessage: null | string = null;
 
   constructor(private todoService: TodoService, private route: ActivatedRoute) { }
 
