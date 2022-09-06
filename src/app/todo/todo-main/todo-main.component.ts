@@ -41,7 +41,7 @@ export class TodoMainComponent implements OnInit, OnDestroy {
     })
   }
 
-  closeModal() {
+  public closeModal(): void {
     this.todoService.errorMes.next(null);
   }
 

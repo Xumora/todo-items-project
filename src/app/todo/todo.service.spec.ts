@@ -73,7 +73,7 @@ describe('TodoService', () => {
     it('should error handle', () => {
         spyOn(todoService.isLoading, 'next');
         spyOn(todoService.errorMes, 'next')
-        todoService.errorHandling('Unauthorized');
+        todoService.handleError('Unauthorized');
         expect(todoService.isLoading.next).toHaveBeenCalledWith(false);
         expect(todoService.errorMes.next).toHaveBeenCalledWith('You did not authorized');
     })

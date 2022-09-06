@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Todo } from '../../todo.model';
 
 
@@ -7,11 +7,6 @@ import { Todo } from '../../todo.model';
   templateUrl: './todo-list.component.html',
   styleUrls: ['./todo-list.component.scss']
 })
-export class TodoListComponent implements OnInit {
+export class TodoListComponent {
   @Input() todos: Todo[] = [];
-
-  constructor() { }
-
-  ngOnInit(): void { }
-
 }

@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { map, Subject, tap } from "rxjs";
+import { map, Observable, Subject, tap } from "rxjs";
 import { Todo } from "./todo.model";
 
 @Injectable({ providedIn: 'root' }) export class TodoService {
@@ -13,7 +13,7 @@ import { Todo } from "./todo.model";
 
     constructor(private http: HttpClient) { }
 
-    errorHandling(err: string) {
+    public handleError(err: string): void {
         let errorMsg = ''
         switch (err) {
             case 'Unauthorized':
@@ -26,7 +26,7 @@ import { Todo } from "./todo.model";
         this.isLoading.next(false);
     }
 
-    addTask(newTodo: { title: string, description: string }) {
+    public addTask(newTodo: { title: string, description: string }): Observable<Object> {
         this.isLoading.next(true)
         return this.http.put(
             `https://todo-app-4b811-default-rtdb.europe-west1.firebasedatabase.app/todos/${+this.todos[this.todos.length - 1].id + 1}.json`,
@@ -34,12 +34,12 @@ import { Todo } from "./todo.model";
         ).pipe(tap({
             next: () => { this.isLoading.next(false) },
             error: error => {
-                this.errorHandling(error.statusText)
+                this.handleError(error.statusText)
             }
         }))
     }
 
-    editTask(newTodo: Todo) {
+    public editTask(newTodo: Todo): Observable<Object> {
         this.isLoading.next(true)
         return this.http.put(
             `https://todo-app-4b811-default-rtdb.europe-west1.firebasedatabase.app/todos/${newTodo.id}.json`,
@@ -47,12 +47,12 @@ import { Todo } from "./todo.model";
         ).pipe(tap({
             next: () => { this.isLoading.next(false) },
             error: error => {
-                this.errorHandling(error.statusText)
+                this.handleError(error.statusText)
             }
         }))
     }
 
-    changeStatus(todo: Todo, isCompleted: boolean) {
+    public changeStatus(todo: Todo, isCompleted: boolean): Observable<Object> {
         this.isLoading.next(true);
         return this.http.put(
             `https://todo-app-4b811-default-rtdb.europe-west1.firebasedatabase.app/todos/${todo.id}.json`,
@@ -60,12 +60,12 @@ import { Todo } from "./todo.model";
         ).pipe(tap({
             next: () => { this.isLoading.next(false) },
             error: error => {
-                this.errorHandling(error.statusText)
+                this.handleError(error.statusText)
             }
         }))
     }
 
-    getTasks() {
+    public getTasks(): Observable<Todo[]> {
         this.isLoading.next(true)
         return this.http.get<Todo[]>(
             'https://todo-app-4b811-default-rtdb.europe-west1.firebasedatabase.app/todos.json'
@@ -82,19 +82,19 @@ import { Todo } from "./todo.model";
                 this.isLoading.next(false)
             },
             error: error => {
-                this.errorHandling(error.statusText)
+                this.handleError(error.statusText)
             }
         }))
     }
 
-    deleteTask(id: string) {
+    public deleteTask(id: string): Observable<Object> {
         this.isLoading.next(true);
         return this.http.delete(
             `https://todo-app-4b811-default-rtdb.europe-west1.firebasedatabase.app/todos/${id}.json`
         ).pipe(tap({
             next: () => { this.isLoading.next(false) },
             error: error => {
-                this.errorHandling(error.statusText)
+                this.handleError(error.statusText)
             }
         }))
     }

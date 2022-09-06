@@ -16,7 +16,7 @@ export class TodoItemComponent implements OnInit {
 
   ngOnInit(): void { }
 
-  onCheck(event: MatCheckboxChange) {
+  public onCheck(event: MatCheckboxChange): void {
     if (event.checked) {
       this.todoService.changeStatus(this.todo, true).pipe(
         mergeMap(() => this.todoService.getTasks())
@@ -28,11 +28,11 @@ export class TodoItemComponent implements OnInit {
     }
   }
 
-  onEdit() {
+  public onEdit(): void {
     this.todoService.editTodo.next({ ...this.todo });
   }
 
-  onDeleteTodo() {
+  public onDeleteTodo(): void {
     this.todoService.deleteTask(this.todo.id).pipe(
       mergeMap(() => this.todoService.getTasks())
     ).subscribe();

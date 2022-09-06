@@ -31,7 +31,7 @@ export class TodoFormComponent implements OnInit, OnDestroy {
     })
   }
 
-  onSubmit() {
+  public onSubmit(): void {
     if (this.editMode) {
       this.todoService.editTask({ id: this.editedTodo.id, ...this.newTodo, completed: this.editedTodo.completed }).pipe(
         mergeMap(() => this.todoService.getTasks())
@@ -44,7 +44,7 @@ export class TodoFormComponent implements OnInit, OnDestroy {
     this.onClear()
   }
 
-  onClear() {
+  public onClear(): void {
     this.todoForm.reset();
     this.editMode = false;
   }
