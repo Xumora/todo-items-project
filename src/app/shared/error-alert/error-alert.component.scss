@@ -1,4 +1,4 @@
-.modal{
+.errorAlert{
     position: fixed;
     top: 0;
     left: 0;
@@ -14,13 +14,11 @@
         max-height: 50vh;
         overflow-y: auto;
         border-radius: 6px;
+        background-color: rgb(238, 196, 203);
+        border: 1px solid rgb(207, 74, 74);
+        color: rgb(207, 74, 74);
         &::-webkit-scrollbar{
             display: none;
-        }
-        &.error{
-            background-color: rgb(238, 196, 203);
-            border: 1px solid rgb(207, 74, 74);
-            color: rgb(207, 74, 74);
         }
     }
 }

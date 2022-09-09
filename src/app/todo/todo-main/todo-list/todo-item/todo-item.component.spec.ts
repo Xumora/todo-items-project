@@ -1,11 +1,14 @@
 import { HttpClientTestingModule } from "@angular/common/http/testing";
 import { DebugElement } from "@angular/core";
 import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing"
-import { MatCheckboxModule } from "@angular/material/checkbox";
-import { MatIconModule } from "@angular/material/icon";
-import { of } from "rxjs";
+import { EntityDataModule } from "@ngrx/data";
+import { StoreModule } from "@ngrx/store";
+import { entityConfig } from "src/app/entity-metadata";
+import { reducers, metaReducers } from "src/app/reducers";
+import { TodoEntityService } from "src/app/services/todo-entity.service";
 import { mockTodos } from "src/app/shared/mockTodos";
-import { TodoService } from "src/app/todo/todo.service";
+import { TodoModule } from "src/app/todo/todo.module";
+import { TodoService } from "../../../../services/todo.service";
 import { TodoItemComponent } from "./todo-item.component"
 
 describe('TodoItem', () => {
@@ -13,17 +16,23 @@ describe('TodoItem', () => {
     let component: TodoItemComponent;
     let el: DebugElement;
     let todoService: TodoService;
+    let todoDataService: TodoEntityService;
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            declarations: [TodoItemComponent],
-            imports: [MatCheckboxModule, MatIconModule, HttpClientTestingModule],
-            providers: [TodoService]
+            imports: [
+                TodoModule,
+                HttpClientTestingModule,
+                StoreModule.forRoot(reducers, { metaReducers }),
+                EntityDataModule.forRoot(entityConfig)
+            ],
+            providers: [TodoService, TodoEntityService]
         }).compileComponents().then(() => {
             fixture = TestBed.createComponent(TodoItemComponent);
             component = fixture.componentInstance;
             el = fixture.debugElement;
             todoService = TestBed.inject(TodoService);
+            todoDataService = TestBed.inject(TodoEntityService);
             component.todo = mockTodos[0];
             fixture.detectChanges();
         })
@@ -33,14 +42,14 @@ describe('TodoItem', () => {
         expect(component).withContext('Todo Item not created').toBeTruthy();
     })
 
-    it('should render true information', () => {
+    it('should render title and description of todo', () => {
         const title: HTMLElement = el.nativeElement.querySelector('.title');
         const description: HTMLElement = el.nativeElement.querySelector('.description');
         expect(title.textContent).withContext('title is wrong').toEqual(component.todo.title);
         expect(description.textContent).withContext('description is wrong').toEqual(component.todo.description);
     })
 
-    it('should edit', () => {
+    it('should set editTodo of todoService - onEdit function', () => {
         spyOn(todoService.editTodo, 'next');
         const editBtn: HTMLElement = el.nativeElement.querySelector('.todo-item-toolbar').children[0];
         editBtn.dispatchEvent(new Event('click'));
@@ -48,18 +57,17 @@ describe('TodoItem', () => {
         expect(todoService.editTodo.next).withContext('EditTodo.next did not called').toHaveBeenCalled();
     })
 
-    it('should delete', () => {
-        spyOn(todoService, 'deleteTask').and.returnValue(of());
+    it('should delete todo - onDeleteTodo function', () => {
+        spyOn(todoDataService, 'delete');
         const deleteBtn: HTMLElement = el.nativeElement.querySelector('.todo-item-toolbar').children[1];
         deleteBtn.dispatchEvent(new Event('click'));
-        expect(todoService.deleteTask).withContext('DeleteTask function did not called').toHaveBeenCalled();
+        expect(todoDataService.delete).withContext('onDeleteTodo function did not work').toHaveBeenCalled();
     })
 
-    it('should change status', () => {
-        spyOn(todoService, 'changeStatus').and.returnValue(of());
+    it('should update the status of Todo - onCheck function', () => {
+        spyOn(todoDataService, 'update');
         const checkbox: HTMLInputElement = el.nativeElement.querySelector('mat-checkbox');
         checkbox.dispatchEvent(new Event('change'));
-        expect(todoService.changeStatus).withContext('changeStatus function did not called').toHaveBeenCalled();
+        expect(todoDataService.update).withContext('onCheck function did not work').toHaveBeenCalled();
     })
-
 })

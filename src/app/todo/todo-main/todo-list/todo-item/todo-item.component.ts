@@ -1,30 +1,24 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
-import { mergeMap } from 'rxjs';
-import { Todo } from 'src/app/todo/todo.model';
-import { TodoService } from 'src/app/todo/todo.service';
+import { TodoEntityService } from 'src/app/services/todo-entity.service';
+import { TodoService } from 'src/app/services/todo.service';
+import { Todo } from '../../../todo.model';
 
 @Component({
   selector: 'app-todo-item',
   templateUrl: './todo-item.component.html',
   styleUrls: ['./todo-item.component.scss']
 })
-export class TodoItemComponent implements OnInit {
+export class TodoItemComponent {
   @Input() todo!: Todo;
 
-  constructor(private todoService: TodoService) { }
-
-  ngOnInit(): void { }
+  constructor(private todoDataService: TodoEntityService, private todoService: TodoService) { }
 
   public onCheck(event: MatCheckboxChange): void {
     if (event.checked) {
-      this.todoService.changeStatus(this.todo, true).pipe(
-        mergeMap(() => this.todoService.getTasks())
-      ).subscribe()
+      this.todoDataService.update({ ...this.todo, completed: true })
     } else {
-      this.todoService.changeStatus(this.todo, false).pipe(
-        mergeMap(() => this.todoService.getTasks())
-      ).subscribe()
+      this.todoDataService.update({ ...this.todo, completed: false })
     }
   }
 
@@ -33,9 +27,6 @@ export class TodoItemComponent implements OnInit {
   }
 
   public onDeleteTodo(): void {
-    this.todoService.deleteTask(this.todo.id).pipe(
-      mergeMap(() => this.todoService.getTasks())
-    ).subscribe();
+    this.todoDataService.delete(this.todo.id)
   }
-
 }

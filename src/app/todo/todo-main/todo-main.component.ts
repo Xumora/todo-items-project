@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 import { Todo } from '../todo.model';
-import { TodoService } from '../todo.service';
-import { mergeMap, Subscription } from 'rxjs';
-import { ActivatedRoute, Params } from '@angular/router';
+import { TodoEntityService } from 'src/app/services/todo-entity.service';
 
 @Component({
   selector: 'app-todo-main',
@@ -10,45 +10,30 @@ import { ActivatedRoute, Params } from '@angular/router';
   styleUrls: ['./todo-main.component.scss']
 })
 export class TodoMainComponent implements OnInit, OnDestroy {
-  todos: Todo[] = []
-  todosSub!: Subscription;
-  loadingSub!: Subscription;
-  isLoading = false;
-  errorSub!: Subscription;
-  errorMessage: null | string = null;
+  public todos: Todo[] = []
+  public todosSub!: Subscription;
+  public isLoading: boolean = false;
+  public loadingSub!: Subscription;
 
-  constructor(private todoService: TodoService, private route: ActivatedRoute) { }
+  constructor(private todoDataService: TodoEntityService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.route.params.pipe(
-      mergeMap((params: Params) => this.todoService.getTasks())
-    ).subscribe()
-
-    this.todosSub = this.todoService.todosChanged.subscribe((res: Todo[]) => {
+    this.todosSub = this.todoDataService.entities$.subscribe(todos => {
       if (this.route.snapshot.params['todoType'] === 'todos') {
-        this.todos = res.filter(todo => !todo.completed);
+        this.todos = todos.filter(todo => !todo.completed);
       } else if (this.route.snapshot.params['todoType'] === 'completed') {
-        this.todos = res.filter(todo => todo.completed);
+        this.todos = todos.filter(todo => todo.completed);
       } else if (this.route.snapshot.params['todoType'] === 'all') {
-        this.todos = res;
+        this.todos = todos;
       }
     })
-    this.loadingSub = this.todoService.isLoading.subscribe(loadingStatus => {
-      this.isLoading = loadingStatus;
-    })
-    this.errorSub = this.todoService.errorMes.subscribe(err => {
-      this.errorMessage = err;
-    })
-  }
-
-  public closeModal(): void {
-    this.todoService.errorMes.next(null);
+    this.loadingSub = this.todoDataService.loading$.subscribe(loadingStatus =>
+      this.isLoading = loadingStatus
+    )
   }
 
   ngOnDestroy(): void {
     this.todosSub.unsubscribe();
     this.loadingSub.unsubscribe();
-    this.errorSub.unsubscribe();
   }
-
 }
