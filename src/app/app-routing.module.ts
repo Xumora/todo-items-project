@@ -5,11 +5,15 @@ import { TodoResolver } from './todo/todo.resolver';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/todos', pathMatch: 'full' },
-  { path: ':todoType', component: TodoMainComponent, resolve: { todos: TodoResolver } }
+  {
+    path: ':todoType',
+    component: TodoMainComponent,
+    resolve: { todos: TodoResolver },
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

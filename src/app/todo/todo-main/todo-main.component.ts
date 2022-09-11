@@ -7,15 +7,18 @@ import { TodoEntityService } from 'src/app/services/todo-entity.service';
 @Component({
   selector: 'app-todo-main',
   templateUrl: './todo-main.component.html',
-  styleUrls: ['./todo-main.component.scss']
+  styleUrls: ['./todo-main.component.scss'],
 })
 export class TodoMainComponent implements OnInit, OnDestroy {
-  public todos: Todo[] = []
+  public todos: Todo[] = [];
   public todosSub!: Subscription;
   public isLoading: boolean = false;
   public loadingSub!: Subscription;
 
-  constructor(private todoDataService: TodoEntityService, private route: ActivatedRoute) { }
+  constructor(
+    private todoDataService: TodoEntityService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.todosSub = this.todoDataService.entities$.subscribe(todos => {
@@ -26,10 +29,10 @@ export class TodoMainComponent implements OnInit, OnDestroy {
       } else if (this.route.snapshot.params['todoType'] === 'all') {
         this.todos = todos;
       }
-    })
-    this.loadingSub = this.todoDataService.loading$.subscribe(loadingStatus =>
-      this.isLoading = loadingStatus
-    )
+    });
+    this.loadingSub = this.todoDataService.loading$.subscribe(
+      loadingStatus => (this.isLoading = loadingStatus)
+    );
   }
 
   ngOnDestroy(): void {

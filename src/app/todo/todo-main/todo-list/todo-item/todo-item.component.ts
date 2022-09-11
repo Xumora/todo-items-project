@@ -7,18 +7,21 @@ import { Todo } from '../../../todo.model';
 @Component({
   selector: 'app-todo-item',
   templateUrl: './todo-item.component.html',
-  styleUrls: ['./todo-item.component.scss']
+  styleUrls: ['./todo-item.component.scss'],
 })
 export class TodoItemComponent {
   @Input() todo!: Todo;
 
-  constructor(private todoDataService: TodoEntityService, private todoService: TodoService) { }
+  constructor(
+    private todoDataService: TodoEntityService,
+    private todoService: TodoService
+  ) {}
 
   public onCheck(event: MatCheckboxChange): void {
     if (event.checked) {
-      this.todoDataService.update({ ...this.todo, completed: true })
+      this.todoDataService.update({ ...this.todo, completed: true });
     } else {
-      this.todoDataService.update({ ...this.todo, completed: false })
+      this.todoDataService.update({ ...this.todo, completed: false });
     }
   }
 
@@ -27,6 +30,6 @@ export class TodoItemComponent {
   }
 
   public onDeleteTodo(): void {
-    this.todoDataService.delete(this.todo.id)
+    this.todoDataService.delete(this.todo.id);
   }
 }

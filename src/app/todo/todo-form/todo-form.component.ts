@@ -8,7 +8,7 @@ import { Todo } from '../todo.model';
 @Component({
   selector: 'app-todo-form',
   templateUrl: './todo-form.component.html',
-  styleUrls: ['./todo-form.component.scss']
+  styleUrls: ['./todo-form.component.scss'],
 })
 export class TodoFormComponent implements OnInit, OnDestroy {
   @ViewChild('todoForm', { static: false }) todoForm!: NgForm;
@@ -17,12 +17,15 @@ export class TodoFormComponent implements OnInit, OnDestroy {
   public newTodo = {
     title: '',
     description: '',
-  }
+  };
   public lastIdSub!: Subscription;
   public lastId!: string | number;
   public editedTodo!: Todo;
 
-  constructor(private todoDataService: TodoEntityService, private todoService: TodoService) { }
+  constructor(
+    private todoDataService: TodoEntityService,
+    private todoService: TodoService
+  ) {}
 
   ngOnInit(): void {
     this.editSub = this.todoService.editTodo.subscribe((todo: Todo) => {
@@ -30,22 +33,28 @@ export class TodoFormComponent implements OnInit, OnDestroy {
       this.newTodo.title = todo.title;
       this.newTodo.description = todo.description;
       this.editedTodo = todo;
-    })
-    this.lastIdSub = this.todoDataService.keys$.subscribe(keys => { this.lastId = keys[keys.length - 1] })
+    });
+    this.lastIdSub = this.todoDataService.keys$.subscribe(keys => {
+      this.lastId = keys[keys.length - 1];
+    });
   }
 
   public onSubmit(): void {
     if (this.editMode) {
-      this.todoDataService.update({ id: this.editedTodo.id, ...this.newTodo, completed: this.editedTodo.completed })
+      this.todoDataService.update({
+        id: this.editedTodo.id,
+        ...this.newTodo,
+        completed: this.editedTodo.completed,
+      });
     } else {
       this.todoDataService.add({
         id: (+this.lastId + 1).toString(),
         title: this.newTodo.title,
         description: this.newTodo.description,
-        completed: false
-      })
+        completed: false,
+      });
     }
-    this.onClear()
+    this.onClear();
   }
 
   public onClear(): void {
@@ -54,7 +63,7 @@ export class TodoFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.editSub.unsubscribe()
-    this.lastIdSub.unsubscribe()
+    this.editSub.unsubscribe();
+    this.lastIdSub.unsubscribe();
   }
 }

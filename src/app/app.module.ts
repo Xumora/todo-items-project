@@ -18,11 +18,7 @@ import { reducers, metaReducers } from './reducers';
 import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HeaderComponent,
-    ErrorAlertComponent
-  ],
+  declarations: [AppComponent, HeaderComponent, ErrorAlertComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -32,18 +28,22 @@ import { EffectsModule } from '@ngrx/effects';
     HttpClientModule,
     TodoModule,
     StoreModule.forRoot(reducers, {
-      metaReducers, runtimeChecks: {
+      metaReducers,
+      runtimeChecks: {
         strictStateImmutability: true,
         strictActionImmutability: true,
         strictActionSerializability: true,
-        strictStateSerializability: true
-      }
+        strictStateSerializability: true,
+      },
     }),
     EffectsModule.forRoot([]),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production,
+    }),
     EntityDataModule.forRoot(entityConfig),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
