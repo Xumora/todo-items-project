@@ -5,6 +5,7 @@ import { Todo } from '../todo/todo.model';
 import { Observable, map, tap } from 'rxjs';
 import { HandleErrorService } from './handle-error.service';
 import { Update } from '@ngrx/entity';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class TodoDataService extends DefaultDataService<Todo> {
@@ -20,15 +21,11 @@ export class TodoDataService extends DefaultDataService<Todo> {
     console.log();
     return this.http
       .get<Todo[]>(
-        'https://todo-app-4b811-default-rtdb.europe-west1.firebasedatabase.app/todos.json'
+        `${environment.todosApi}.json`
       )
       .pipe(
         map(todos => {
-          if (!todos) {
-            return [];
-          } else {
-            return todos.filter(todo => todo !== null);
-          }
+          return !todos ? [] : todos.filter(todo => todo !== null)
         }),
         tap({
           error: error => {
@@ -41,7 +38,7 @@ export class TodoDataService extends DefaultDataService<Todo> {
   override add(entity: Todo): Observable<Todo> {
     return this.http
       .put<Todo>(
-        `https://todo-app-4b811-default-rtdb.europe-west1.firebasedatabase.app/todos/${entity.id}.json`,
+        `${environment.todosApi}/${entity.id}.json`,
         entity
       )
       .pipe(
@@ -56,7 +53,7 @@ export class TodoDataService extends DefaultDataService<Todo> {
   override update(update: Update<Todo>): Observable<Todo> {
     return this.http
       .put<Todo>(
-        `https://todo-app-4b811-default-rtdb.europe-west1.firebasedatabase.app/todos/${update.id}.json`,
+        `${environment.todosApi}/${update.id}.json`,
         update.changes
       )
       .pipe(
@@ -71,7 +68,7 @@ export class TodoDataService extends DefaultDataService<Todo> {
   override delete(key: string | number): Observable<string | number> {
     return this.http
       .delete<string | number>(
-        `https://todo-app-4b811-default-rtdb.europe-west1.firebasedatabase.app/todos/${key}.json`
+        `${environment.todosApi}/${key}.json`
       )
       .pipe(
         tap({

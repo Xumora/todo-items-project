@@ -7,6 +7,7 @@ import { entityConfig } from 'src/app/entity-metadata';
 import { reducers, metaReducers } from 'src/app/reducers';
 import { TodoEntityService } from 'src/app/services/todo-entity.service';
 import { mockTodos } from 'src/app/shared/mockTodos';
+import { getTranslocoModule } from 'src/app/shared/transloco-testing.module';
 import { TodoModule } from 'src/app/todo/todo.module';
 import { TodoService } from '../../../../services/todo.service';
 import { TodoItemComponent } from './todo-item.component';
@@ -16,12 +17,13 @@ describe('TodoItem', () => {
   let component: TodoItemComponent;
   let el: DebugElement;
   let todoService: TodoService;
-  let todoDataService: TodoEntityService;
+  let todoEntityService: TodoEntityService;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         TodoModule,
+        getTranslocoModule(),
         HttpClientTestingModule,
         StoreModule.forRoot(reducers, { metaReducers }),
         EntityDataModule.forRoot(entityConfig),
@@ -34,7 +36,7 @@ describe('TodoItem', () => {
         component = fixture.componentInstance;
         el = fixture.debugElement;
         todoService = TestBed.inject(TodoService);
-        todoDataService = TestBed.inject(TodoEntityService);
+        todoEntityService = TestBed.inject(TodoEntityService);
         component.todo = mockTodos[0];
         fixture.detectChanges();
       });
@@ -68,21 +70,21 @@ describe('TodoItem', () => {
   });
 
   it('should delete todo - onDeleteTodo function', () => {
-    spyOn(todoDataService, 'delete');
+    spyOn(todoEntityService, 'delete');
     const deleteBtn: HTMLElement =
       el.nativeElement.querySelector('.todo-item-toolbar').children[1];
     deleteBtn.dispatchEvent(new Event('click'));
-    expect(todoDataService.delete)
+    expect(todoEntityService.delete)
       .withContext('onDeleteTodo function did not work')
       .toHaveBeenCalled();
   });
 
   it('should update the status of Todo - onCheck function', () => {
-    spyOn(todoDataService, 'update');
+    spyOn(todoEntityService, 'update');
     const checkbox: HTMLInputElement =
       el.nativeElement.querySelector('mat-checkbox');
     checkbox.dispatchEvent(new Event('change'));
-    expect(todoDataService.update)
+    expect(todoEntityService.update)
       .withContext('onCheck function did not work')
       .toHaveBeenCalled();
   });

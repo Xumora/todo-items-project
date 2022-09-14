@@ -4,5 +4,5 @@ import { Todo } from '../todo/todo.model';
 
 @Injectable({ providedIn: 'root' })
 export class TodoService {
-  editTodo = new Subject<Todo>();
+  public editTodo = new Subject<Todo>();
 }

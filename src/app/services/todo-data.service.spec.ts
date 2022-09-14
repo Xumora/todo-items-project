@@ -9,6 +9,8 @@ import { StoreModule } from '@ngrx/store';
 import { reducers, metaReducers } from '../reducers';
 import { entityConfig } from '../entity-metadata';
 import { mockTodos } from '../shared/mockTodos';
+import { environment } from 'src/environments/environment'
+import { getTranslocoModule } from '../shared/transloco-testing.module';
 
 describe('TodoDataService', () => {
   let todoDataService: TodoDataService,
@@ -18,6 +20,7 @@ describe('TodoDataService', () => {
     TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,
+        getTranslocoModule(),
         StoreModule.forRoot(reducers, { metaReducers }),
         EntityDataModule.forRoot(entityConfig),
       ],
@@ -33,7 +36,7 @@ describe('TodoDataService', () => {
       expect(res).withContext('Wrong response').toEqual(mockTodos);
     });
     const req = httpTestingController.expectOne(
-      'https://todo-app-4b811-default-rtdb.europe-west1.firebasedatabase.app/todos.json'
+      `${environment.todosApi}.json`
     );
     expect(req.request.method).toEqual('GET');
     req.flush(mockTodos);
@@ -45,7 +48,7 @@ describe('TodoDataService', () => {
       expect(res).withContext('Wrong response').toEqual(mockTodos[0]);
     });
     const req = httpTestingController.expectOne(
-      'https://todo-app-4b811-default-rtdb.europe-west1.firebasedatabase.app/todos/1.json'
+      `${environment.todosApi}/1.json`
     );
     expect(req.request.method).toEqual('PUT');
     req.flush(mockTodos[0]);
@@ -59,7 +62,7 @@ describe('TodoDataService', () => {
         expect(res).withContext('Wrong response').toEqual(mockTodos[0]);
       });
     const req = httpTestingController.expectOne(
-      'https://todo-app-4b811-default-rtdb.europe-west1.firebasedatabase.app/todos/1.json'
+      `${environment.todosApi}/1.json`
     );
     expect(req.request.method).toEqual('PUT');
     req.flush(mockTodos[0]);
@@ -71,7 +74,7 @@ describe('TodoDataService', () => {
       expect(res).withContext('Wrong response').toEqual('dummy data');
     });
     const req = httpTestingController.expectOne(
-      'https://todo-app-4b811-default-rtdb.europe-west1.firebasedatabase.app/todos/1.json'
+      `${environment.todosApi}/1.json`
     );
     expect(req.request.method).toEqual('DELETE');
     req.flush('dummy data');

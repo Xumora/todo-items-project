@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
+import { translate } from '@ngneat/transloco';
 import { Subject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class HandleErrorService {
-  errorMessage = new Subject<null | string>();
+  public errorMessage = new Subject<null | string>();
 
   public handleError(err: string): void {
-    let errorMsg = '';
+    let errorMsg = translate('handleError.default');
     switch (err) {
       case 'Unauthorized':
-        errorMsg = 'You did not authorized';
+        errorMsg = errorMsg + translate('handleError.unauthorized');
         break;
       default:
         break;

@@ -15,7 +15,7 @@ describe('TodoMainComponent', () => {
   let fixture: ComponentFixture<TodoMainComponent>;
   let component: TodoMainComponent;
   let el: DebugElement;
-  let todoDataService: TodoEntityService;
+  let todoEntityService: TodoEntityService;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -33,7 +33,7 @@ describe('TodoMainComponent', () => {
         fixture = TestBed.createComponent(TodoMainComponent);
         component = fixture.componentInstance;
         el = fixture.debugElement;
-        todoDataService = TestBed.inject(TodoEntityService);
+        todoEntityService = TestBed.inject(TodoEntityService);
         fixture.detectChanges();
       });
   }));

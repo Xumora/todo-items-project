@@ -12,42 +12,43 @@ import { Todo } from '../todo.model';
 })
 export class TodoFormComponent implements OnInit, OnDestroy {
   @ViewChild('todoForm', { static: false }) todoForm!: NgForm;
-  public editSub!: Subscription;
   public editMode = false;
   public newTodo = {
     title: '',
     description: '',
   };
-  public lastIdSub!: Subscription;
   public lastId!: string | number;
   public editedTodo!: Todo;
+  public subscriptions: Subscription = new Subscription();
 
   constructor(
-    private todoDataService: TodoEntityService,
+    private todoEntityService: TodoEntityService,
     private todoService: TodoService
-  ) {}
+  ) { }
 
-  ngOnInit(): void {
-    this.editSub = this.todoService.editTodo.subscribe((todo: Todo) => {
+  public ngOnInit(): void {
+    const editSub = this.todoService.editTodo.subscribe((todo: Todo) => {
       this.editMode = true;
       this.newTodo.title = todo.title;
       this.newTodo.description = todo.description;
       this.editedTodo = todo;
     });
-    this.lastIdSub = this.todoDataService.keys$.subscribe(keys => {
+    const lastIdSub = this.todoEntityService.keys$.subscribe(keys => {
       this.lastId = keys[keys.length - 1];
     });
+    this.subscriptions.add(editSub);
+    this.subscriptions.add(lastIdSub);
   }
 
   public onSubmit(): void {
     if (this.editMode) {
-      this.todoDataService.update({
+      this.todoEntityService.update({
         id: this.editedTodo.id,
         ...this.newTodo,
         completed: this.editedTodo.completed,
       });
     } else {
-      this.todoDataService.add({
+      this.todoEntityService.add({
         id: (+this.lastId + 1).toString(),
         title: this.newTodo.title,
         description: this.newTodo.description,
@@ -62,8 +63,7 @@ export class TodoFormComponent implements OnInit, OnDestroy {
     this.editMode = false;
   }
 
-  ngOnDestroy(): void {
-    this.editSub.unsubscribe();
-    this.lastIdSub.unsubscribe();
+  public ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }

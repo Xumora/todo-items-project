@@ -11,9 +11,9 @@ export class AppComponent implements OnInit, OnDestroy {
   public errorMessage: null | string = null;
   public errorSub!: Subscription;
 
-  constructor(private handleErrorService: HandleErrorService) {}
+  constructor(private handleErrorService: HandleErrorService) { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.errorSub = this.handleErrorService.errorMessage.subscribe(err => {
       this.errorMessage = err;
     });
@@ -23,7 +23,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.handleErrorService.errorMessage.next(null);
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     this.errorSub.unsubscribe();
   }
 }

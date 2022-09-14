@@ -1,4 +1,6 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
+import { getTranslocoModule } from '../shared/transloco-testing.module';
 import { HandleErrorService } from './handle-error.service';
 
 describe('HandleErrorService', () => {
@@ -6,6 +8,7 @@ describe('HandleErrorService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [getTranslocoModule()],
       providers: [HandleErrorService],
     });
     handleErrorService = TestBed.inject(HandleErrorService);
@@ -16,6 +19,6 @@ describe('HandleErrorService', () => {
     handleErrorService.handleError('Unauthorized');
     expect(handleErrorService.errorMessage.next)
       .withContext('handleError method did not work')
-      .toHaveBeenCalledWith('You did not authorized');
+      .toHaveBeenCalledWith('An error occured. You did not authorized!');
   });
 });

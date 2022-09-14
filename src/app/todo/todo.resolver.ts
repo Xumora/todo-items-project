@@ -10,14 +10,14 @@ import { Todo } from './todo.model';
 
 @Injectable({ providedIn: 'root' })
 export class TodoResolver implements Resolve<Todo[]> {
-  constructor(private todoService: TodoEntityService) {}
+  constructor(private todoEntityService: TodoEntityService) { }
 
-  resolve(
+  public resolve(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<Todo[]> {
-    return this.todoService.entities$.pipe(
-      tap(() => this.todoService.getAll()),
+    return this.todoEntityService.entities$.pipe(
+      tap(() => this.todoEntityService.getAll()),
       first()
     );
   }

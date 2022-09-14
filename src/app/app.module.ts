@@ -16,6 +16,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { reducers, metaReducers } from './reducers';
 import { EffectsModule } from '@ngrx/effects';
+import { TranslocoRootModule } from './transloco-root.module';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, ErrorAlertComponent],
@@ -42,8 +43,9 @@ import { EffectsModule } from '@ngrx/effects';
       logOnly: environment.production,
     }),
     EntityDataModule.forRoot(entityConfig),
+    TranslocoRootModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

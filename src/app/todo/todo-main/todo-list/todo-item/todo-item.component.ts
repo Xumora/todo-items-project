@@ -13,15 +13,15 @@ export class TodoItemComponent {
   @Input() todo!: Todo;
 
   constructor(
-    private todoDataService: TodoEntityService,
+    private todoEntityService: TodoEntityService,
     private todoService: TodoService
-  ) {}
+  ) { }
 
   public onCheck(event: MatCheckboxChange): void {
     if (event.checked) {
-      this.todoDataService.update({ ...this.todo, completed: true });
+      this.todoEntityService.update({ ...this.todo, completed: true });
     } else {
-      this.todoDataService.update({ ...this.todo, completed: false });
+      this.todoEntityService.update({ ...this.todo, completed: false });
     }
   }
 
@@ -30,6 +30,6 @@ export class TodoItemComponent {
   }
 
   public onDeleteTodo(): void {
-    this.todoDataService.delete(this.todo.id);
+    this.todoEntityService.delete(this.todo.id);
   }
 }

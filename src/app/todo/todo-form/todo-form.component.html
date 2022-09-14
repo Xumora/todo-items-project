@@ -1,24 +1,31 @@
-<div>
+<div *transloco="let t; read:'form'">
     <h3 class="todoForm-title">
-        {{editMode ? 'Edit a task' : 'Add new To Do Task'}}
+        {{editMode ? t('editFormTitle') : t('addFormTitle')}}
     </h3>
     <form (ngSubmit)="onSubmit()" #todoForm="ngForm" class="todoForm">
         <mat-form-field appearance="standard">
-            <mat-label>Title</mat-label>
+            <mat-label>{{t('titleLabel')}}</mat-label>
             <input matInput [(ngModel)]="newTodo.title" name="title" #title="ngModel" required minlength="6"
                 maxlength="40">
-            <mat-error *ngIf="title.invalid && title.touched">Title must contain at least 6 symbols</mat-error>
+            <mat-error *ngIf="title.invalid && title.touched">
+                {{t('titleValError')}}
+            </mat-error>
         </mat-form-field>
         <mat-form-field appearance="standard">
-            <mat-label>Description</mat-label>
+            <mat-label>{{t('descriptionLabel')}}</mat-label>
             <textarea matInput [(ngModel)]="newTodo.description" required name="description" cdkTextareaAutosize
                 [cdkAutosizeMaxRows]="10" #description="ngModel"></textarea>
-            <mat-error *ngIf="description.invalid && description.touched">Description is required!</mat-error>
+            <mat-error *ngIf="description.invalid && description.touched">
+                {{t('descriptionValError')}}
+            </mat-error>
         </mat-form-field>
         <div class="todoForm-bottom">
-            <button mat-raised-button color="primary" [disabled]="todoForm.invalid">{{editMode ? 'Update' :
-                'Add'}}</button>
-            <button mat-raised-button color="primary" *ngIf="editMode" (click)="onClear()" type="button">Clear</button>
+            <button mat-raised-button color="primary" [disabled]="todoForm.invalid">
+                {{editMode ? t('update') : t('add')}}
+            </button>
+            <button mat-raised-button color="primary" *ngIf="editMode" (click)="onClear()" type="button">
+                {{t('clear')}}
+            </button>
         </div>
     </form>
 </div>

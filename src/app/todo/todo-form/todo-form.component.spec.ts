@@ -11,17 +11,19 @@ import { mockTodos } from 'src/app/shared/mockTodos';
 import { TodoService } from '../../services/todo.service';
 import { TodoModule } from '../todo.module';
 import { TodoFormComponent } from './todo-form.component';
+import { getTranslocoModule } from 'src/app/shared/transloco-testing.module';
 
 describe('TodoFormComponent', () => {
   let fixture: ComponentFixture<TodoFormComponent>;
   let component: TodoFormComponent;
   let el: DebugElement;
   let todoService: TodoService;
-  let todoDataService: TodoEntityService;
+  let todoEntityService: TodoEntityService;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
+        getTranslocoModule(),
         TodoModule,
         HttpClientTestingModule,
         BrowserAnimationsModule,
@@ -36,7 +38,7 @@ describe('TodoFormComponent', () => {
         component = fixture.componentInstance;
         el = fixture.debugElement;
         todoService = TestBed.inject(TodoService);
-        todoDataService = TestBed.inject(TodoEntityService);
+        todoEntityService = TestBed.inject(TodoEntityService);
         fixture.detectChanges();
       });
   }));
@@ -61,12 +63,12 @@ describe('TodoFormComponent', () => {
   });
 
   it('should add new task - onSubmit function', () => {
-    spyOn(todoDataService, 'add');
+    spyOn(todoEntityService, 'add');
     spyOn(component, 'onClear');
     component.editMode = false;
     fixture.detectChanges();
     component.onSubmit();
-    expect(todoDataService.add)
+    expect(todoEntityService.add)
       .withContext('service addTask function did not called')
       .toHaveBeenCalled();
     expect(component.onClear)
@@ -75,13 +77,13 @@ describe('TodoFormComponent', () => {
   });
 
   it('should edit task - onSubmit function', () => {
-    spyOn(todoDataService, 'update');
+    spyOn(todoEntityService, 'update');
     spyOn(component, 'onClear');
     component.editMode = true;
     todoService.editTodo.next(mockTodos[0]);
     fixture.detectChanges();
     component.onSubmit();
-    expect(todoDataService.update)
+    expect(todoEntityService.update)
       .withContext('service editTask function did not called')
       .toHaveBeenCalled();
     expect(component.onClear)

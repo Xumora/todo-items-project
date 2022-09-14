@@ -10,11 +10,13 @@ import {
 } from '@angular/core/testing';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterTestingModule } from '@angular/router/testing';
+import { TranslocoService } from '@ngneat/transloco';
 import { EntityDataModule } from '@ngrx/data';
 import { StoreModule } from '@ngrx/store';
 import { routes } from '../app-routing.module';
 import { entityConfig } from '../entity-metadata';
 import { reducers, metaReducers } from '../reducers';
+import { getTranslocoModule } from '../shared/transloco-testing.module';
 import { TodoModule } from '../todo/todo.module';
 import { HeaderComponent } from './header.component';
 
@@ -30,11 +32,13 @@ describe('HeaderComponent', () => {
       imports: [
         RouterTestingModule.withRoutes(routes),
         MatToolbarModule,
-        TodoModule,
         HttpClientTestingModule,
+        TodoModule,
         StoreModule.forRoot(reducers, { metaReducers }),
         EntityDataModule.forRoot(entityConfig),
+        getTranslocoModule()
       ],
+      providers: [TranslocoService]
     })
       .compileComponents()
       .then(() => {
@@ -42,6 +46,7 @@ describe('HeaderComponent', () => {
         component = fixture.componentInstance;
         el = fixture.debugElement;
         location = TestBed.inject(Location);
+        fixture.detectChanges();
       });
   }));
 

@@ -2,6 +2,8 @@
     <div class="errorAlert-content">
         <p class="errorAlert-content-message">{{message}}</p>
         <hr />
-        <button mat-stroked-button (click)="onClose()" class="errorAlert-content-close">Close</button>
+        <button mat-stroked-button (click)="onClose()" class="errorAlert-content-close">
+            {{'errorAlert.close' | transloco}}
+        </button>
     </div>
 </div>

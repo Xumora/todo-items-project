@@ -1,6 +1,7 @@
 import { DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ErrorAlertComponent } from './error-alert.component';
+import { getTranslocoModule } from '../transloco-testing.module';
 
 describe('ErrorAlertComponent', () => {
   let component: ErrorAlertComponent;
@@ -9,6 +10,7 @@ describe('ErrorAlertComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
+      imports: [getTranslocoModule()],
       declarations: [ErrorAlertComponent],
     })
       .compileComponents()
@@ -35,10 +37,8 @@ describe('ErrorAlertComponent', () => {
   });
 
   it('should add errorAlert close event emitter - button', () => {
-    const btn: HTMLElement = el.nativeElement.querySelector(
-      '.errorAlert-content-close'
-    );
     spyOn(component.modalClosed, 'emit');
+    const btn = el.nativeElement.querySelector('.errorAlert-content-close')
     btn.dispatchEvent(new Event('click'));
     expect(component.modalClosed.emit)
       .withContext('errorAlert close event emitter not called')
