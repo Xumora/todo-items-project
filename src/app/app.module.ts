@@ -48,4 +48,4 @@ import { TranslocoRootModule } from './transloco-root.module';
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

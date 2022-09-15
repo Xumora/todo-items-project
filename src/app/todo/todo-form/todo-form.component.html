@@ -1,30 +1,30 @@
-<div *transloco="let t; read:'form'">
+<div>
     <h3 class="todoForm-title">
-        {{editMode ? t('editFormTitle') : t('addFormTitle')}}
+        {{editMode ? ('form.editFormTitle' | transloco) : ('form.addFormTitle' | transloco)}}
     </h3>
     <form (ngSubmit)="onSubmit()" #todoForm="ngForm" class="todoForm">
         <mat-form-field appearance="standard">
-            <mat-label>{{t('titleLabel')}}</mat-label>
+            <mat-label>{{'form.titleLabel' | transloco}}</mat-label>
             <input matInput [(ngModel)]="newTodo.title" name="title" #title="ngModel" required minlength="6"
                 maxlength="40">
             <mat-error *ngIf="title.invalid && title.touched">
-                {{t('titleValError')}}
+                {{'form.titleValError' | transloco}}
             </mat-error>
         </mat-form-field>
         <mat-form-field appearance="standard">
-            <mat-label>{{t('descriptionLabel')}}</mat-label>
+            <mat-label>{{'form.descriptionLabel' | transloco}}</mat-label>
             <textarea matInput [(ngModel)]="newTodo.description" required name="description" cdkTextareaAutosize
                 [cdkAutosizeMaxRows]="10" #description="ngModel"></textarea>
             <mat-error *ngIf="description.invalid && description.touched">
-                {{t('descriptionValError')}}
+                {{'form.descriptionValError' | transloco}}
             </mat-error>
         </mat-form-field>
         <div class="todoForm-bottom">
             <button mat-raised-button color="primary" [disabled]="todoForm.invalid">
-                {{editMode ? t('update') : t('add')}}
+                {{editMode ? ('form.update' | transloco) : ('form.add' | transloco)}}
             </button>
             <button mat-raised-button color="primary" *ngIf="editMode" (click)="onClear()" type="button">
-                {{t('clear')}}
+                {{'form.clear' | transloco}}
             </button>
         </div>
     </form>

@@ -17,11 +17,11 @@ export class TodoMainComponent implements OnInit, OnDestroy {
   constructor(
     private todoEntityService: TodoEntityService,
     private route: ActivatedRoute
-  ) { }
+  ) {}
 
   public ngOnInit(): void {
     const todosSub = this.todoEntityService.entities$.subscribe(todos => {
-      this.initializeComponent(todos)
+      this.initializeComponent(todos);
     });
     const loadingSub = this.todoEntityService.loading$.subscribe(
       loadingStatus => (this.isLoading = loadingStatus)

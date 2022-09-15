@@ -19,6 +19,8 @@ import {
 import { TodoDataService } from '../services/todo-data.service';
 import { TodoEntityService } from '../services/todo-entity.service';
 import { TranslocoModule } from '@ngneat/transloco';
+import { StoreModule } from '@ngrx/store';
+import * as fromTodo from './reducers/index';
 
 const entityMetaData: EntityMetadataMap = {
   Todo: {},
@@ -40,7 +42,8 @@ const entityMetaData: EntityMetadataMap = {
     MatCheckboxModule,
     MatIconModule,
     MatButtonModule,
-    TranslocoModule
+    TranslocoModule,
+    StoreModule.forFeature(fromTodo.todoFeatureKey, fromTodo.todoReducer),
   ],
   exports: [
     TodoMainComponent,

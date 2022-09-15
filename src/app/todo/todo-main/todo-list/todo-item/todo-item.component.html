@@ -1,9 +1,8 @@
 <div class="todo-item">
     <div class="todo-item-content">
         <h4 class="title">{{todo.title}}</h4>
-        <mat-checkbox color="primary" (change)="onCheck($event)" [checked]="todo.completed"
-            *transloco="let t; read: 'todoItem'">
-            {{t('completed')}}
+        <mat-checkbox color="primary" (change)="onCheck($event)" [checked]="todo.completed">
+            {{'todoItem.completed' | transloco}}
         </mat-checkbox>
         <hr />
         <p class="description">{{todo.description}}</p>

@@ -11,7 +11,7 @@ export class AppComponent implements OnInit, OnDestroy {
   public errorMessage: null | string = null;
   public errorSub!: Subscription;
 
-  constructor(private handleErrorService: HandleErrorService) { }
+  constructor(private handleErrorService: HandleErrorService) {}
 
   public ngOnInit(): void {
     this.errorSub = this.handleErrorService.errorMessage.subscribe(err => {

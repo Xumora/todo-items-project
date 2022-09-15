@@ -1,4 +1,3 @@
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { getTranslocoModule } from '../shared/transloco-testing.module';
 import { HandleErrorService } from './handle-error.service';

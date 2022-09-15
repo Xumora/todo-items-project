@@ -9,7 +9,7 @@ import { StoreModule } from '@ngrx/store';
 import { reducers, metaReducers } from '../reducers';
 import { entityConfig } from '../entity-metadata';
 import { mockTodos } from '../shared/mockTodos';
-import { environment } from 'src/environments/environment'
+import { environment } from 'src/environments/environment';
 import { getTranslocoModule } from '../shared/transloco-testing.module';
 
 describe('TodoDataService', () => {
@@ -35,9 +35,7 @@ describe('TodoDataService', () => {
       expect(res).withContext('No response returned').toBeTruthy();
       expect(res).withContext('Wrong response').toEqual(mockTodos);
     });
-    const req = httpTestingController.expectOne(
-      `${environment.todosApi}.json`
-    );
+    const req = httpTestingController.expectOne(`${environment.todosApi}.json`);
     expect(req.request.method).toEqual('GET');
     req.flush(mockTodos);
   });

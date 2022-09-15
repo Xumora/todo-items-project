@@ -36,9 +36,9 @@ describe('HeaderComponent', () => {
         TodoModule,
         StoreModule.forRoot(reducers, { metaReducers }),
         EntityDataModule.forRoot(entityConfig),
-        getTranslocoModule()
+        getTranslocoModule(),
       ],
-      providers: [TranslocoService]
+      providers: [TranslocoService],
     })
       .compileComponents()
       .then(() => {

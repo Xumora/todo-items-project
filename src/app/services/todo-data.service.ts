@@ -19,28 +19,21 @@ export class TodoDataService extends DefaultDataService<Todo> {
 
   override getAll(): Observable<Todo[]> {
     console.log();
-    return this.http
-      .get<Todo[]>(
-        `${environment.todosApi}.json`
-      )
-      .pipe(
-        map(todos => {
-          return !todos ? [] : todos.filter(todo => todo !== null)
-        }),
-        tap({
-          error: error => {
-            this.handleErrorService.handleError(error.statusText);
-          },
-        })
-      );
+    return this.http.get<Todo[]>(`${environment.todosApi}.json`).pipe(
+      map(todos => {
+        return !todos ? [] : todos.filter(todo => todo !== null);
+      }),
+      tap({
+        error: error => {
+          this.handleErrorService.handleError(error.statusText);
+        },
+      })
+    );
   }
 
   override add(entity: Todo): Observable<Todo> {
     return this.http
-      .put<Todo>(
-        `${environment.todosApi}/${entity.id}.json`,
-        entity
-      )
+      .put<Todo>(`${environment.todosApi}/${entity.id}.json`, entity)
       .pipe(
         tap({
           error: error => {
@@ -52,10 +45,7 @@ export class TodoDataService extends DefaultDataService<Todo> {
 
   override update(update: Update<Todo>): Observable<Todo> {
     return this.http
-      .put<Todo>(
-        `${environment.todosApi}/${update.id}.json`,
-        update.changes
-      )
+      .put<Todo>(`${environment.todosApi}/${update.id}.json`, update.changes)
       .pipe(
         tap({
           error: error => {
@@ -67,9 +57,7 @@ export class TodoDataService extends DefaultDataService<Todo> {
 
   override delete(key: string | number): Observable<string | number> {
     return this.http
-      .delete<string | number>(
-        `${environment.todosApi}/${key}.json`
-      )
+      .delete<string | number>(`${environment.todosApi}/${key}.json`)
       .pipe(
         tap({
           error: error => {

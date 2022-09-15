@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  todosApi: 'https://todo-app-4b811-default-rtdb.europe-west1.firebasedatabase.app/todos'
+  todosApi:
+    'https://todo-app-4b811-default-rtdb.europe-west1.firebasedatabase.app/todos',
 };
 
 /*

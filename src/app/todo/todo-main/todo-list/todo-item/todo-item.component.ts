@@ -1,7 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import { Store } from '@ngrx/store';
 import { TodoEntityService } from 'src/app/services/todo-entity.service';
-import { TodoService } from 'src/app/services/todo.service';
+import { TodoState } from 'src/app/todo/reducers';
+import { setEditedTodo } from 'src/app/todo/todo.actions';
 import { Todo } from '../../../todo.model';
 
 @Component({
@@ -14,8 +16,8 @@ export class TodoItemComponent {
 
   constructor(
     private todoEntityService: TodoEntityService,
-    private todoService: TodoService
-  ) { }
+    private store: Store<TodoState>
+  ) {}
 
   public onCheck(event: MatCheckboxChange): void {
     if (event.checked) {
@@ -26,7 +28,7 @@ export class TodoItemComponent {
   }
 
   public onEdit(): void {
-    this.todoService.editTodo.next({ ...this.todo });
+    this.store.dispatch(setEditedTodo({ editedTodo: this.todo }));
   }
 
   public onDeleteTodo(): void {

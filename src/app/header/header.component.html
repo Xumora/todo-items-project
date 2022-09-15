@@ -1,20 +1,20 @@
 <mat-toolbar color="primary" class="header">
     <h1>ToDo App</h1>
-    <div class="header-linkBox" *transloco="let t; read: 'header'">
+    <div class="header-linkBox">
         <button class="langBtn" [ngClass]="{'active': activeLang === 'en'}" (click)="changeLanguage('en')">
-            {{t('en')}}
+            {{'header.en' | transloco}}
         </button>
         <button class="langBtn" [ngClass]="{'active': activeLang === 'ru'}" (click)="changeLanguage('ru')">
-            {{t('ru')}}
+            {{'header.ru' | transloco}}
         </button>
         <a mat-flat-button color="primary" routerLinkActive="active" routerLink="/todos">
-            {{t('todo')}}
+            {{'header.todo' | transloco}}
         </a>
         <a mat-flat-button color="primary" routerLinkActive="active" routerLink="/completed">
-            {{t('completed')}}
+            {{'header.completed' | transloco}}
         </a>
         <a mat-flat-button color="primary" routerLinkActive="active" routerLink="/all">
-            {{t('all')}}
+            {{'header.all' | transloco}}
         </a>
     </div>
 </mat-toolbar>

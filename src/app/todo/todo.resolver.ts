@@ -10,7 +10,7 @@ import { Todo } from './todo.model';
 
 @Injectable({ providedIn: 'root' })
 export class TodoResolver implements Resolve<Todo[]> {
-  constructor(private todoEntityService: TodoEntityService) { }
+  constructor(private todoEntityService: TodoEntityService) {}
 
   public resolve(
     route: ActivatedRouteSnapshot,

@@ -38,7 +38,7 @@ describe('ErrorAlertComponent', () => {
 
   it('should add errorAlert close event emitter - button', () => {
     spyOn(component.modalClosed, 'emit');
-    const btn = el.nativeElement.querySelector('.errorAlert-content-close')
+    const btn = el.nativeElement.querySelector('.errorAlert-content-close');
     btn.dispatchEvent(new Event('click'));
     expect(component.modalClosed.emit)
       .withContext('errorAlert close event emitter not called')
