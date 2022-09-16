@@ -2,6 +2,8 @@ name: CI
 on:
   pull_request:
     branches: [develop]
+  push:
+    branches: [develop]
 
 jobs:
   build:
@@ -11,7 +13,7 @@ jobs:
       - name: Node JS
         uses: actions/setup-node@v1
         with:
-          node-version: '16.17.0'
+          node-version: "16.17.0"
       - run: npm install
       - name: Run linters
         uses: wearerequired/lint-action@v2
@@ -19,3 +21,12 @@ jobs:
           eslint: true
           prettier: true
       - run: npm run test:headless
+      - name: Build Project
+        if: github.event_name == 'push'
+        run: npm run build
+      - name: Deploy to Staging
+        if: github.event_name == 'push'
+        run: npx surge --project ./dist/todo-items-project --domain married-scalewwwww.surge.sh
+        env:
+          SURGE_LOGIN: ${{secrets.SURGE_LOGIN}}
+          SURGE_TOKEN: ${{secrets.SURGE_TOKEN}}
