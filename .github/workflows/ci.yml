@@ -31,5 +31,5 @@ jobs:
         with:
           domain: "married-scalewwwww.surge.sh"
           project: "./dist/todo-items-project"
-          login: ${{secrets.SURGE_LOGIN}}
-          token: ${{secrets.SURGE_TOKEN}}
+          login: ${{ env.surge.SURGE_LOGIN }}
+          token: ${{ env.surge.SURGE_TOKEN }}
