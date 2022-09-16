@@ -1,0 +1,17 @@
+name: CI
+on:
+  pull_request:
+    branches: [develop]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Node JS
+        uses: actions/setup-node@v1
+        with:
+          node-version: "16.17.0"
+      - run: npm ci
+      - run: ng lint --fix
+      - run: ng test --no-watch --code-coverage
