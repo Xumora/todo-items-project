@@ -27,9 +27,7 @@ jobs:
         run: npm run build
       - name: Deploy to Staging
         if: github.event_name == 'push'
-        uses: dswistowski/surge-sh-action@v1
-        with:
-          domain: "married-scalewwwww.surge.sh"
-          project: "./dist/todo-items-project"
-          login: ${{ secrets.surge.SURGE_LOGIN }}
-          token: ${{ secrets.surge.SURGE_TOKEN }}
+        run: npx surge --project ./dist/todo-items-project --domain married-scalewwwww.surge.sh
+        env:
+          SURGE_LOGIN: ${{secrets.SURGE_LOGIN}}
+          SURGE_TOKEN: ${{secrets.SURGE_TOKEN}}
