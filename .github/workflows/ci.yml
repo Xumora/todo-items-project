@@ -13,4 +13,9 @@ jobs:
         with:
           node-version: "16.17.0"
       - run: npm install
+      - name: Run linters
+        uses: wearerequired/lint-action@v2
+        with:
+          eslint: true
+          prettier: true
       - run: npm run test:headless
