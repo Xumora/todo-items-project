@@ -20,7 +20,7 @@ jobs:
       - name: Node JS
         uses: actions/setup-node@v1
         with:
-          node-version: '16.17.0'
+          node-version: "16.17.0"
       - run: npm install
       - name: Run linters
         uses: wearerequired/lint-action@v2
@@ -31,6 +31,7 @@ jobs:
       - name: Upload Test Coverage
         uses: actions/upload-artifact@v1
         with:
+          name: test-coverage
           path: coverage
       - name: Build Project
         if: github.event_name == 'push'
