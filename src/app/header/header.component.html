@@ -1,19 +1,37 @@
 <mat-toolbar color="primary" class="header">
   <h1>ToDo App</h1>
   <div class="header-linkBox">
-    <button class="langBtn" [ngClass]="{ active: activeLang === 'en' }" (click)="changeLanguage('en')">
+    <button
+      class="langBtn"
+      [ngClass]="{ active: activeLang === 'en' }"
+      (click)="changeLanguage('en')">
       {{ 'header.en' | transloco }}
     </button>
-    <button class="langBtn" [ngClass]="{ active: activeLang === 'ru' }" (click)="changeLanguage('ru')">
+    <button
+      class="langBtn"
+      [ngClass]="{ active: activeLang === 'ru' }"
+      (click)="changeLanguage('ru')">
       {{ 'header.ru' | transloco }}
     </button>
-    <a mat-flat-button color="primary" routerLinkActive="active" routerLink="/todos">
+    <a
+      mat-flat-button
+      color="primary"
+      routerLinkActive="active"
+      routerLink="/todos">
       {{ 'header.todo' | transloco }}
     </a>
-    <a mat-flat-button color="primary" routerLinkActive="active" routerLink="/completed">
+    <a
+      mat-flat-button
+      color="primary"
+      routerLinkActive="active"
+      routerLink="/completed">
       {{ 'header.completed' | transloco }}
     </a>
-    <a mat-flat-button color="primary" routerLinkActive="active" routerLink="/all">
+    <a
+      mat-flat-button
+      color="primary"
+      routerLinkActive="active"
+      routerLink="/all">
       {{ 'header.all' | transloco }}
     </a>
   </div>
