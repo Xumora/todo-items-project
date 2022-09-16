@@ -1,10 +1,10 @@
-.todo-main{
-    padding: 16px;
-    background-color: #FAFAFA;
-    height: 100%;
-    &.loading{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+.todo-main {
+  padding: 16px;
+  background-color: #fafafa;
+  height: 100%;
+  &.loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }

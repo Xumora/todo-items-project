@@ -1,9 +1,9 @@
-.todo-list{
-    max-height: calc(100vh - 96px);
-    overflow-y: auto;
-    border-radius: 10px;
-    box-shadow: 0 0 6px rgba(0,0,0,0.3);
-    &::-webkit-scrollbar{
-        display: none;
-    }
+.todo-list {
+  max-height: calc(100vh - 96px);
+  overflow-y: auto;
+  border-radius: 10px;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }

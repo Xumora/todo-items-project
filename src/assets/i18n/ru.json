@@ -1,30 +1,31 @@
 {
-    "header": {
-        "todo": "Задачи для выполнения",
-        "completed": "Завершенные задачи",
-        "all": "Все задачи",
-        "en": "Анг",
-        "ru": "Ру"
-    },
-    "form": {
-        "addFormTitle": "Добавить задачу",
-        "editFormTitle": "Редактировать задачу",
-        "titleLabel": "Заголовок",
-        "titleValError": "Заголовок должен содержать не менее 6 символов",
-        "descriptionLabel": "Описание",
-        "descriptionValError": "Описание обязательно",
-        "add": "Добавить",
-        "update": "Редактировать",
-        "clear": "Отменить"
-    },
-    "todoItem": {
-        "completed": "Завершенный"
-    },
-    "errorAlert": {
-        "close": "Закрыть"
-    },
-    "handleError": {
-        "default": "Произошла ошибка. ",
-        "unauthorized": "Вы не зарегистрировались!"
-    }
+  "header": {
+    "todo": "Задачи для выполнения",
+    "completed": "Завершенные задачи",
+    "all": "Все задачи",
+    "movies": "Филмы",
+    "en": "Анг",
+    "ru": "Ру"
+  },
+  "form": {
+    "addFormTitle": "Добавить задачу",
+    "editFormTitle": "Редактировать задачу",
+    "titleLabel": "Заголовок",
+    "titleValError": "Заголовок должен содержать не менее 6 символов",
+    "descriptionLabel": "Описание",
+    "descriptionValError": "Описание обязательно",
+    "add": "Добавить",
+    "update": "Редактировать",
+    "clear": "Отменить"
+  },
+  "todoItem": {
+    "completed": "Завершенный"
+  },
+  "errorAlert": {
+    "close": "Закрыть"
+  },
+  "handleError": {
+    "default": "Произошла ошибка. ",
+    "unauthorized": "Вы не зарегистрировались!"
+  }
 }
