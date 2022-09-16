@@ -1,11 +1,14 @@
 <app-header></app-header>
-<app-error-alert (modalClosed)="closeModal()" *ngIf="errorMessage !== null" [message]="errorMessage">
+<app-error-alert
+  (modalClosed)="closeModal()"
+  *ngIf="errorMessage !== null"
+  [message]="errorMessage">
 </app-error-alert>
 <div class="todoApp">
-    <div class="todoApp-sidebar">
-        <app-todo-form></app-todo-form>
-    </div>
-    <div class="todoApp-main">
-        <router-outlet></router-outlet>
-    </div>
+  <div class="todoApp-sidebar">
+    <app-todo-form></app-todo-form>
+  </div>
+  <div class="todoApp-main">
+    <router-outlet></router-outlet>
+  </div>
 </div>

@@ -1,23 +1,23 @@
-.todoForm{
-    &-title{
-        text-align: center;
-        font-size: 24px;
-        margin-bottom: 32px !important;
+.todoForm {
+  &-title {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 32px !important;
+  }
+  .mat-form-field {
+    width: 100%;
+  }
+  textarea {
+    &::-webkit-scrollbar {
+      display: none;
     }
-    .mat-form-field{
-        width: 100%;
+  }
+  &-bottom {
+    text-align: center;
+    margin-top: 16px;
+    button {
+      width: 100%;
+      margin-bottom: 8px;
     }
-    textarea{
-        &::-webkit-scrollbar{
-            display: none;
-        }
-    }
-    &-bottom{
-        text-align: center;
-        margin-top: 16px;
-        button{
-            width: 100%;
-            margin-bottom: 8px;
-        }
-    }
+  }
 }

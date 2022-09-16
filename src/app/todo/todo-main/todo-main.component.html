@@ -1,4 +1,4 @@
-<div class="todo-main" [ngClass]="{'loading': isLoading}">
-    <app-todo-list [todos]="todos" *ngIf="!isLoading"></app-todo-list>
-    <app-spinner *ngIf="isLoading"></app-spinner>
+<div class="todo-main" [ngClass]="{ loading: isLoading }">
+  <app-todo-list [todos]="todos" *ngIf="!isLoading"></app-todo-list>
+  <app-spinner *ngIf="isLoading"></app-spinner>
 </div>
