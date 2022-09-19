@@ -20,7 +20,7 @@ jobs:
       - name: Node JS
         uses: actions/setup-node@v1
         with:
-          node-version: '16.17.0'
+          node-version: "16.17.0"
       - run: npm install
       - name: Run linters
         uses: wearerequired/lint-action@v2
@@ -44,5 +44,13 @@ jobs:
       - run: npm install -g surge
         if: github.event_name == 'push'
       - name: Deploy to Staging
-        if: github.event_name == 'push'
+        if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
         run: surge ./dist/todo-items-project married-scalewwwww.surge.sh --token ${{ secrets.SURGE_TOKEN }}
+      - name: Deploy to Production
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: surge ./dist/todo-items-project jaded-committeeqwerty.surge.sh --token ${{ secrets.SURGE_TOKEN }}
+      - name: Upload Coverage Reports
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: npx codecov
+        env:
+          CODECOV_TOKEN: ${{secrets.CODECOV_TOKEN}}
